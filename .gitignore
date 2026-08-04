@@ -1,10 +1,6 @@
 # Local agent instructions (first-use document, not versioned yet)
 /AGENTS.md
 
-# Internal project context pending publication approval
-/docs/architecture/
-/docs/references/
-
 # Windows alternate data stream metadata materialized by WSL/copies
 *:Zone.Identifier
 
@@ -14,4 +10,5 @@
 !.env.example
 
 # Generated simulations, reports and implementation runs
-/results/
+/results/*
+!/results/.gitkeep

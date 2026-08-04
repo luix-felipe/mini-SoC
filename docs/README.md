@@ -1,21 +1,15 @@
-# Classificação da documentação
+# Documentação do projeto
 
-Este diretório separa documentação publicável de contexto interno do projeto.
+Este diretório centraliza a documentação de arquitetura, referências e fluxos de trabalho do projeto.
 
-## Publicável após revisão normal
+## Organização
 
-- `docs/workflows/development-routine.md`
-- `docs/workflows/unic-cass-wsl-installation.md`
+- `docs/architecture/` — capacidades, alternativas e decisões arquiteturais;
+- `docs/references/` — índice e localização das fontes do projeto;
+- `docs/workflows/development-routine.md` — rotina diária de desenvolvimento;
+- `docs/workflows/unic-cass-wsl-installation.md` — preparação automatizada do ambiente.
 
-Esses documentos devem usar `$HOME`, variáveis de ambiente e placeholders como `<NOME_DO_PROJETO>`. Não devem conter nomes pessoais, caminhos locais absolutos, credenciais, IPs privados ou informações de cliente.
-
-## Uso interno
-
-- `AGENTS.md`
-- `docs/architecture/`
-- `docs/references/`
-
-Esses caminhos estão ignorados pelo Git enquanto não houver autorização de publicação. Mesmo internamente, evitar dados pessoais e credenciais. Informações de escopo, estado, responsabilidades, arquitetura e documentos de origem devem ser revisadas pelo gestor antes de qualquer divulgação.
+Os documentos devem usar `$HOME`, variáveis de ambiente e placeholders como `<NOME_DO_PROJETO>`. Não devem conter nomes pessoais, caminhos locais absolutos, credenciais, IPs privados ou informações de cliente.
 
 ## Checklist antes de publicar
 
@@ -23,5 +17,4 @@ Esses caminhos estão ignorados pelo Git enquanto não houver autorização de p
 - substituir nomes de usuário e caminhos locais por variáveis;
 - anonimizar responsáveis por função;
 - verificar URLs, anexos e metadados;
-- confirmar a classificação com o gestor;
 - revisar `git diff --cached` antes do commit.
