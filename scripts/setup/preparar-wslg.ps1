@@ -2,6 +2,25 @@
 # Execute no PowerShell como Administrador.
 
 $ErrorActionPreference = "Stop"
+$distro = "Ubuntu-24.04"
+
+Write-Host "=== Verificando se a distro $distro está instalada ===" -ForegroundColor Cyan
+
+$distrosInstaladas = (wsl -l -q) -replace "`0", "" | ForEach-Object { $_.Trim() }
+
+# Valida se a distro está na lista
+if ($distrosInstaladas -contains $distro) {
+    Write-Host "A distro $distro já está instalada!" -ForegroundColor Green
+} else {
+    Write-Host "A distro $distro NÃO está instalada. Iniciando instalação..." -ForegroundColor Yellow
+    
+    # Instala e define como padrão
+    wsl --install -d $distro
+    wsl --set-default $distro
+    
+    Write-Host "A distro $distro foi instalada e definida como padrão!" -ForegroundColor Green
+}
+Write-Host "Para iniciar o WSL, digite 'wsl' no terminal." -ForegroundColor Cyan
 
 Write-Host "=== Atualizando WSL ===" -ForegroundColor Cyan
 wsl --update
@@ -51,4 +70,4 @@ Write-Host "O conteúdo completo não é exibido para evitar exposição de outr
 Write-Host "=== Reiniciando WSL ===" -ForegroundColor Cyan
 wsl --shutdown
 
-Write-Host 'Concluído. Abra o Ubuntu e confirme: echo $DISPLAY; xclock' -ForegroundColor Green
+Write-Host 'Concluído. Abra o Ubuntu, instale os pacotes gráficos (sudo apt install x11-apps) e confirme: echo $DISPLAY; xclock' -ForegroundColor Green
