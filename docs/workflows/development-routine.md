@@ -1,7 +1,7 @@
 # Rotina de desenvolvimento
 
-Edite no WSL e execute evidências oficiais na imagem
-`isaiassh/unic-cass-tools:1.1.0`.
+Edite no WSL e execute as evidências oficiais na imagem configurada pelo
+`Makefile` do checkout do UNIC-CASS.
 
 ## Iniciar o ambiente
 
@@ -37,7 +37,14 @@ Os comandos reproduzíveis dos cores estão em [`pipe-clean`](../../pipe-clean/R
 Quando `flow/config.yaml` existir, executar:
 
 ```bash
+make -C pipe-clean librelane-prepare
 /home/designer/shared/bin/librelane-local flow/config.yaml
+```
+
+Antes do fluxo físico, a regressão funcional mínima é:
+
+```bash
+make -C pipe-clean chipus-soc-smoke
 ```
 
 Um resultado oficial deve registrar comando, revisão, versões, PDK/biblioteca,

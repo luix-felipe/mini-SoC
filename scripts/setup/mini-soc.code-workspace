@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "mini-SoC",
+			"path": "../.."
+		},
+		{
+			"name": "Ibex (pinned candidate)",
+			"path": "../../../ip-candidates/riscv/ibex"
+		},
+		{
+			"name": "Croc (pinned candidate)",
+			"path": "../../../ip-candidates/riscv/croc"
+		}
+	],
+	"settings": {}
+}

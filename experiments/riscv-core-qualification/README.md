@@ -17,6 +17,7 @@ make -C mini-SoC/pipe-clean ibex-core
 make -C mini-SoC/pipe-clean ibex-wrapper
 make -C mini-SoC/pipe-clean ibex-smoke
 make -C mini-SoC/pipe-clean croc-smoke
+make -C mini-SoC/pipe-clean chipus-soc-smoke
 ```
 
 ## Resultado
@@ -28,6 +29,9 @@ make -C mini-SoC/pipe-clean croc-smoke
 | Ibex Simple System com firmware e halt | `SMOKE-PASS` |
 | Croc RTL completo compilado | `PASS` |
 | Croc `helloworld` com término limpo | `BLOCKED` |
+| Top CHIPUS: reset, fetch, SRAM e status MMIO | `PASS` |
+| UART TX do top CHIPUS | `PASS` |
+| Síntese/STA SKY130 do top CHIPUS | não executado |
 
 No Croc, JTAG/SRAM e UART funcionaram, mas houve repetição de diagnóstico de
 instrução ilegal sem marcador final de sucesso. O alvo retorna erro para não
@@ -38,3 +42,4 @@ Simple System Ibex e compatibilidade temporária da toolchain do Croc. Nenhum
 clone upstream é modificado.
 
 Evidência: [`evidence/2026-09-01.md`](evidence/2026-09-01.md).
+Top-level: [`evidence/2026-09-14-chipus-soc-top.md`](evidence/2026-09-14-chipus-soc-top.md).

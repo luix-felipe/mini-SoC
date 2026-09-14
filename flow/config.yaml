@@ -1,0 +1,28 @@
+DESIGN_NAME: chipus_soc_top
+VERILOG_FILES:
+  # Os prefixos numericos gerados preservam a ordem de compilacao do FuseSoC.
+  - dir::src/rtl/*.sv
+  - dir::../rtl/chipus_addr_map_pkg.sv
+  - dir::../rtl/chipus_ibex_wrapper.sv
+  - dir::../rtl/chipus_uart_tx.sv
+  - dir::../rtl/chipus_soc_top.sv
+VERILOG_INCLUDE_DIRS:
+  - dir::src/include
+VERILOG_DEFINES:
+  - SYNTHESIS
+  - DISABLE_PRIM_CDC_RAND_DELAY
+USE_SLANG: true
+CLOCK_PORT: clk_i
+CLOCK_PERIOD: 50.0
+# Gate de infraestrutura: 1 KiB evita transformar a SRAM RTL de 64 KiB em
+# mais de 1,6 milhao de celulas. O default RTL permanece em 64 KiB para simulacao.
+SYNTH_PARAMETERS:
+  - SramWords=256
+FP_CORE_UTIL: 35
+IO_PIN_ORDER_CFG: dir::pin_order.cfg
+
+pdk::sky130A:
+  MAX_FANOUT_CONSTRAINT: 8
+  PL_TARGET_DENSITY_PCT: 45
+  scl::sky130_fd_sc_hd:
+    CLOCK_PERIOD: 50.0

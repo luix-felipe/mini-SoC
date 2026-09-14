@@ -6,9 +6,13 @@ set -euo pipefail
 
 REPO_URL="https://github.com/unic-cass/uniccass-icdesign-tools.git"
 REPO_DIR="${UNICCASS_REPO_DIR:-$HOME/eda/uniccass-icdesign-tools}"
-IMAGE="${UNICCASS_IMAGE:-isaiassh/unic-cass-tools:1.1.0}"
 PDK_ALVO="${UNICCASS_PDK:-sky130A}"
-PROJECT_NAME="${UNICCASS_PROJECT_NAME:-}"
+PROJECT_NAME="${UNICCASS_PROJECT_NAME:-chipus-soc}"
+PROJECT_REPO_NAME="${UNICCASS_PROJECT_REPO_NAME:-mini-SoC}"
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+SOURCE_REPO="$(git -C "$SCRIPT_DIR/../.." rev-parse --show-toplevel 2>/dev/null)" \
+  || { printf 'ERRO: execute uma cópia deste script pertencente a um clone Git do mini-SoC.\n' >&2; exit 1; }
 
 case "$PDK_ALVO" in
   sky130A|ihp-sg13g2|gf180mcuD) ;;
@@ -16,14 +20,18 @@ case "$PDK_ALVO" in
 esac
 
 [[ "$PROJECT_NAME" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] \
-  || { printf 'ERRO: defina UNICCASS_PROJECT_NAME com um nome simples e não sensível.\n' >&2; exit 1; }
+  || { printf 'ERRO: UNICCASS_PROJECT_NAME deve conter apenas letras, números, ponto, hífen ou sublinhado.\n' >&2; exit 1; }
+[[ "$PROJECT_REPO_NAME" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] \
+  || { printf 'ERRO: UNICCASS_PROJECT_REPO_NAME deve ser um nome de diretório simples.\n' >&2; exit 1; }
 
 log() { printf '\n\033[1;36m=== %s ===\033[0m\n' "$1"; }
 fail() { printf '\nERRO: %s\n' "$1" >&2; exit 1; }
 
 log "Pré-verificações"
+grep -qi microsoft /proc/version 2>/dev/null || fail "Este instalador deve ser executado dentro do Ubuntu no WSL2."
+command -v sudo >/dev/null || fail "sudo não encontrado. Use uma instalação Ubuntu WSL com sudo habilitado."
 [[ -n "${DISPLAY:-}" ]] || fail "DISPLAY vazio. Ative guiApplications=true no arquivo C:\\Users\\<usuario>\\.wslconfig e execute wsl --shutdown."
-[[ -S /tmp/.X11-unix/X0 ]] || fail "Socket X11 /tmp/.X11-unix/X0 não encontrado. Teste o WSLg com xclock antes de continuar."
+[[ -d /mnt/wslg && -d /tmp/.X11-unix ]] || fail "WSLg não está disponível. Execute preparar-wslg.ps1 no Windows, reabra a distribuição e teste com xclock."
 command -v docker >/dev/null || fail "Docker não encontrado no WSL. Habilite a integração da distribuição no Docker Desktop."
 docker info >/dev/null 2>&1 || fail "Docker daemon inacessível. Abra o Docker Desktop e confirme a integração WSL."
 
@@ -46,6 +54,7 @@ else
 fi
 cd "$REPO_DIR"
 PROJECT_DIR="$REPO_DIR/shared_xserver/$PROJECT_NAME"
+PROJECT_CHECKOUT="$PROJECT_DIR/$PROJECT_REPO_NAME"
 
 log "PDK padrão e estrutura do projeto"
 touch .env
@@ -56,6 +65,18 @@ else
 fi
 mkdir -p "$PROJECT_DIR"/{rtl,tb,firmware,analog,flow,docs,results}
 mkdir -p shared_xserver/bin
+
+log "Clone de trabalho do mini-SoC"
+if [[ ! -e "$PROJECT_CHECKOUT" ]]; then
+  git clone --no-local "$SOURCE_REPO" "$PROJECT_CHECKOUT"
+  if SOURCE_ORIGIN="$(git -C "$SOURCE_REPO" remote get-url origin 2>/dev/null)"; then
+    git -C "$PROJECT_CHECKOUT" remote set-url origin "$SOURCE_ORIGIN"
+  fi
+elif [[ -d "$PROJECT_CHECKOUT/.git" ]]; then
+  echo "Clone de trabalho já existe: $PROJECT_CHECKOUT"
+else
+  fail "O destino do mini-SoC existe, mas não é um clone Git: $PROJECT_CHECKOUT"
+fi
 
 log "Compatibilidade WSL sem /dev/dri"
 if [[ ! -e /dev/dri ]] && grep -q -- '--device=/dev/dri:/dev/dri' Makefile; then
@@ -118,11 +139,11 @@ exit "$falhas"
 VERIFY
 chmod +x shared_xserver/bin/verificar-ambiente-unicass
 
-log "Imagem Docker"
-docker image inspect "$IMAGE" >/dev/null 2>&1 || docker pull "$IMAGE"
+log "Imagem Docker configurada pelo UNIC-CASS"
+make pull
 
 log "Validação da toolchain RISC-V no host"
-riscv64-unknown-elf-gcc --version | head -n 1
+riscv64-unknown-elf-gcc --version | sed -n '1p'
 riscv64-unknown-elf-gcc -print-multi-lib | grep -q 'rv32imac/ilp32' \
   && echo "Suporte RV32: OK" \
   || fail "Toolchain instalada, mas o multilib RV32 esperado não foi encontrado."
@@ -141,6 +162,6 @@ Dentro do container:
 
 Para abrir o projeto no VS Code pelo WSL:
 
-  cd "$PROJECT_DIR"
+  cd "$PROJECT_CHECKOUT"
   code .
 MSG

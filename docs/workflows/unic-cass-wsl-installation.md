@@ -19,22 +19,32 @@ No PowerShell administrativo:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\preparar-wslg.ps1
+.\scripts\setup\preparar-wslg.ps1
 ```
 
 Após reabrir o Ubuntu:
 
 ```bash
-bash ./instalar-unicass-wsl.sh
+cd /caminho/do/clone/mini-SoC
+bash scripts/setup/instalar-unicass-wsl.sh
 ```
+
+Sem opções, o projeto é criado como `chipus-soc` e o clone de trabalho como
+`mini-SoC`. O script pode ser iniciado de qualquer diretório: ele localiza o
+repositório a partir da própria localização.
 
 Valores principais podem ser definidos sem editar o script:
 
 ```bash
 UNICCASS_PDK=sky130A \
 UNICCASS_PROJECT_NAME=chipus-soc \
-bash ./instalar-unicass-wsl.sh
+bash scripts/setup/instalar-unicass-wsl.sh
 ```
+
+Também podem ser usados `UNICCASS_REPO_DIR` para escolher onde instalar as
+ferramentas e `UNICCASS_PROJECT_REPO_NAME` para alterar o nome do checkout de
+trabalho. A imagem Docker é resolvida pelo `Makefile` do UNIC-CASS, evitando que
+o instalador e o projeto apontem para versões diferentes.
 
 ## Verificação
 

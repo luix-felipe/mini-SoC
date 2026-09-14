@@ -5,7 +5,7 @@ QUALIFICATION_DIR := $(MINISOC_ROOT)/experiments/riscv-core-qualification
 IBEX_DIR := $(WORKSPACE_ROOT)/ip-candidates/riscv/ibex
 CROC_DIR := $(WORKSPACE_ROOT)/ip-candidates/riscv/croc
 
-.PHONY: show ibex-core ibex-wrapper ibex-smoke croc-smoke
+.PHONY: show ibex-core ibex-wrapper ibex-smoke croc-smoke chipus-soc-smoke librelane-prepare
 
 show:
 	@echo "Workspace .......... $(WORKSPACE_ROOT)"
@@ -28,3 +28,9 @@ ibex-smoke:
 
 croc-smoke:
 	$(MAKE) -C "$(QUALIFICATION_DIR)" croc-smoke
+
+chipus-soc-smoke:
+	$(MAKE) -C "$(QUALIFICATION_DIR)" chipus-soc-smoke
+
+librelane-prepare:
+	"$(MINISOC_ROOT)/flow/prepare-sources.sh"

@@ -12,3 +12,7 @@
 # Generated simulations, reports and implementation runs
 /results/*
 !/results/.gitkeep
+
+# Generated flattened source tree for the LibreLane frontend
+/flow/src/
+/flow/runs/

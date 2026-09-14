@@ -25,6 +25,9 @@
 | Conformidade/coverage | não executado | não executado |
 | Síntese/STA SKY130 | não executado | não executado |
 
+O top-level mínimo CHIPUS com Ibex passou em reset, fetch, load/store na SRAM,
+status MMIO e transmissão UART. A síntese SKY130 permanece pendente.
+
 Ibex Simple System produziu `Hello simple system`, terminou por software e
 aposentou 261 instruções. Croc acessou SRAM por JTAG e imprimiu pela UART, mas
 entrou em diagnósticos repetidos de instrução ilegal sem o marcador de sucesso.
@@ -36,6 +39,7 @@ make -C mini-SoC/pipe-clean ibex-core
 make -C mini-SoC/pipe-clean ibex-wrapper
 make -C mini-SoC/pipe-clean ibex-smoke
 make -C mini-SoC/pipe-clean croc-smoke
+make -C mini-SoC/pipe-clean chipus-soc-smoke
 ```
 
 O `ibex-core` funciona no WSL ou dentro do UNIC-CASS. Os outros dois alvos devem

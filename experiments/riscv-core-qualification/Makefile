@@ -5,7 +5,7 @@ CROC_DIR ?= $(WORKSPACE_ROOT)/ip-candidates/riscv/croc
 MINISOC_ROOT ?= $(abspath ../..)
 IBEX_WRAPPER ?= $(MINISOC_ROOT)/rtl/chipus_ibex_wrapper.sv
 
-.PHONY: check-clones ibex-core ibex-wrapper ibex-smoke croc-smoke
+.PHONY: check-clones ibex-core ibex-wrapper ibex-smoke croc-smoke chipus-soc-smoke
 
 check-clones:
 	@test -d "$(IBEX_DIR)/.git" || { echo "Clone do Ibex ausente: $(IBEX_DIR)"; exit 1; }
@@ -67,3 +67,6 @@ croc-smoke:
 		echo "       Execute este alvo no terminal WSL, fora do UNIC-CASS." >&2; \
 		exit 2; \
 	fi
+
+chipus-soc-smoke:
+	"$(MINISOC_ROOT)/scripts/test/run-chipus-soc-smoke.sh"
