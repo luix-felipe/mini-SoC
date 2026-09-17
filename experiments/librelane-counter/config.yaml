@@ -1,0 +1,18 @@
+DESIGN_NAME: librelane_counter8
+
+VERILOG_FILES:
+  - dir::rtl/librelane_counter8.sv
+
+CLOCK_PORT: clk_i
+CLOCK_PERIOD: 50.0
+PNR_SDC_FILE: dir::constraints.sdc
+SIGNOFF_SDC_FILE: dir::constraints.sdc
+
+# Área fixa facilita observar floorplan, pinos, PDN e placement em um bloco pequeno.
+FP_SIZING: absolute
+DIE_AREA: [0, 0, 100, 100]
+IO_PIN_ORDER_CFG: dir::pin_order.cfg
+
+pdk::sky130A:
+  scl::sky130_fd_sc_hd:
+    CLOCK_PERIOD: 50.0

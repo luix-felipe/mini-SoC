@@ -1,0 +1,55 @@
+157. Printing statistics.
+
+=== chipus_ibex_wrapper ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    15513 wires
+    20619 wire bits
+      220 public wires
+     5295 public wire bits
+       26 ports
+      198 port bits
+    18138 cells
+     4272   $_ANDNOT_
+      613   $_AND_
+        4   $_DFFE_PN0N_
+     1622   $_DFFE_PN0P_
+        1   $_DFFE_PN1N_
+        7   $_DFFE_PN1P_
+      271   $_DFFE_PP_
+       37   $_DFF_PN0_
+        2   $_DFF_PN1_
+        1   $_DLATCH_N_
+     4038   $_MUX_
+      439   $_NAND_
+      751   $_NOR_
+     1692   $_NOT_
+      580   $_ORNOT_
+     2666   $_OR_
+        1   $_SDFFCE_PN0P_
+        1   $_SDFFCE_PP0P_
+      333   $_XNOR_
+      807   $_XOR_
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_DFFE_PN0N_ is unknown!
+   Area for cell type $_DFFE_PN0P_ is unknown!
+   Area for cell type $_DFFE_PN1N_ is unknown!
+   Area for cell type $_DFFE_PN1P_ is unknown!
+   Area for cell type $_DFFE_PP_ is unknown!
+   Area for cell type $_DFF_PN0_ is unknown!
+   Area for cell type $_DFF_PN1_ is unknown!
+   Area for cell type $_DLATCH_N_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_SDFFCE_PN0P_ is unknown!
+   Area for cell type $_SDFFCE_PP0P_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+

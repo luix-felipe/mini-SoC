@@ -1,0 +1,30 @@
+DESIGN_NAME: chipus_ibex_wrapper
+
+VERILOG_FILES:
+  # Fontes ordenadas pelo FuseSoC no passo 1.
+  - dir::../../flow/src/rtl/*.sv
+
+  # Nosso wrapper é o módulo de topo.
+  - dir::../../rtl/chipus_ibex_wrapper.sv
+
+VERILOG_INCLUDE_DIRS:
+  - dir::../../flow/src/include
+
+VERILOG_DEFINES:
+  - SYNTHESIS
+  - DISABLE_PRIM_CDC_RAND_DELAY
+
+# Slang oferece suporte mais completo a SystemVerilog.
+USE_SLANG: true
+
+CLOCK_PORT: clk_i
+CLOCK_PERIOD: 50.0
+PNR_SDC_FILE: dir::constraints.sdc
+SIGNOFF_SDC_FILE: dir::constraints.sdc
+FP_SIZING: absolute
+DIE_AREA: [0, 0, 750, 750]
+IO_PIN_ORDER_CFG: dir::pin_order.cfg
+
+pdk::sky130A:
+  scl::sky130_fd_sc_hd:
+    CLOCK_PERIOD: 50.0
