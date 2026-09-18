@@ -2,12 +2,12 @@
 
 Roteiro de aprendizado RTL -> GDSII usando `chipus_ibex_wrapper` e o Ibex
 oficial, sem SRAM externa, UART ou interconnect do Mini-SoC. Registro atualizado
-em 2026-09-17: execução concluída até placement detalhado; **CTS não executado**.
-O laboratório foi pausado pelo operador devido à carga na máquina.
+em 2026-09-18: **passos 1 a 15 executados; GDSII gerado**. A visualização no
+KLayout (passo 16) ainda não foi confirmada pelo operador.
 
-Estado: candidato com elaboração, síntese e implementação física parcial
-reproduzidas. Timing fechado, routing, DRC/LVS finais e GDSII do Ibex permanecem
-`UNTESTED`. O sucesso do contador não valida essas etapas para o processador.
+Estado: `CANDIDATE`, com fluxo RTL -> GDSII reproduzido e DRC/LVS/antena
+aprovados. **Não está em signoff**: persistem violações de setup, slew e
+capacitância. Hold passou nos nove cantos finais analisados.
 
 ## Entradas e ambiente
 
@@ -64,14 +64,16 @@ Isso facilita o estudo, mas aumenta o trabalho total. Execute um gate por vez,
 com monitor de memória aberto; não use o config do SoC com SRAM inferida.
 Interrompa com `Ctrl+C` diante de paginação intensa ou perda de resposta.
 
-RSS de aproximadamente 864 MiB e `Swaps: 0` no relatório não comprovam ausência
-de pressão de memória no Windows/WSL inteiro. Os próximos gates podem exigir
-mais recursos; não retomar CTS/routing automaticamente nesta máquina.
+O pico medido passou de aproximadamente 864 MiB para 2,24 GiB no roteamento.
+`Swaps: 0` não comprova ausência de pressão de memória no Windows/WSL inteiro.
+Não repetir fluxos automaticamente; reservar recursos e monitorar a máquina.
 
 ## Etapas executadas
 
 Os [trechos finais de terminal](evidence/terminal-final-logs.md) preservam os
-logs enviados pelo operador. Os runs guardam logs completos e configs históricos;
+logs enviados pelo operador até placement; os
+[resultados dos passos 11 a 15](evidence/steps-11-15.md) registram o avanço seguinte.
+Os runs guardam logs completos e configs históricos;
 o config atual incorpora mudanças feitas ao longo do laboratório.
 
 ### 1. Preparar fontes
@@ -200,7 +202,91 @@ O gate concluiu, mas não contém uma nova STA dedicada após o reparo. Métrica
 timing herdadas do estágio anterior não comprovam fechamento. A violação do
 clock gate e os limites elétricos precisam ser reavaliados após CTS/reparos.
 
+### 11. CTS
+
+```bash
+/usr/bin/time -v "$LL" --run-tag ibex-cts --to OpenROAD.CTS \
+  experiments/librelane-ibex/config.yaml
+```
+
+Constrói buffers e ramificações para distribuir o clock aos registradores e
+controlar diferenças de chegada (skew). Execução concluída com saída zero;
+o run pós-CTS seguinte contém 391 clock buffers e 31 clock inverters.
+CTS concluído não significa timing fechado.
+
+### 12. STA e reparos pós-CTS
+
+```bash
+/usr/bin/time -v "$LL" --run-tag ibex-postcts --to OpenROAD.STAMidPNR-2 \
+  experiments/librelane-ibex/config.yaml
+```
+
+Nesta versão, a segunda instância `STAMidPNR-2` vem após
+`ResizerTimingPostCTS`. Executa STA pós-CTS, reparos de setup/hold e nova STA.
+Foram inseridos 1.723 buffers de hold. Na nova STA do canto TT/25 °C/1,80 V:
+setup +18,157 ns; hold +0,301 ns; zero violação de setup/hold, slew ou
+capacitância; 13 violações de fanout. Esse resultado não valida os demais cantos.
+O nome da instância deve ser revisto se mudar a versão.
+
+### 13. Roteamento global
+
+```bash
+/usr/bin/time -v "$LL" --run-tag ibex-global-routing --to OpenROAD.GlobalRouting \
+  experiments/librelane-ibex/config.yaml
+```
+
+Cria guias de caminhos e camadas para as conexões. Resultado: 16.721 redes,
+overflow final zero em todas as camadas; uso agregado dos recursos de 35,70%;
+1.229.959 µm de fios e 134.863 vias planejadas. Não é DRC nem timing final.
+
+### 14. Roteamento detalhado
+
+```bash
+/usr/bin/time -v "$LL" --run-tag ibex-detailed-routing --to OpenROAD.DetailedRouting \
+  experiments/librelane-ibex/config.yaml
+```
+
+Define a geometria e posição dos fios/vias. Resultado final: zero DRC interno
+do roteador e zero violação de antena em redes/pinos; 932.198 µm de fios,
+137.387 vias e 119 células de antena. O aviso `GRT-0243` ocorreu numa tentativa
+intermediária; os reparos posteriores chegaram a zero. O DRC interno do roteador
+não substitui Magic/KLayout.
+
+### 15. Extração, STA final, GDSII e verificação
+
+```bash
+/usr/bin/time -v "$LL" --run-tag ibex-full \
+  experiments/librelane-ibex/config.yaml
+```
+
+Sem `--to`, executa todo o fluxo: células de preenchimento, RCX/SPEF, STA
+pós-layout multicorner, GDSII, DRC Magic/KLayout, extração SPICE e LVS Netgen.
+Resultado: GDSII gerado, DRC Magic/KLayout, LVS e antena aprovados; Netgen
+reportou `Circuits match uniquely`. A execução terminou com saída zero, mas
+os checkers reportaram violações como warnings, não como falha do processo.
+
+| Verificação final | Resultado |
+| --- | --- |
+| Setup | Falhou em `max_ss_100C_1v60` (-1,817 ns) e `nom_ss_100C_1v60` (-0,301 ns) |
+| Hold | Zero violação nos nove cantos analisados |
+| Slew | Violações nos nove cantos; maior contagem: 6.981 no canto `max_ss` |
+| Capacitância | Violações em cinco cantos; maior contagem: 71 no canto `max_ss` |
+| DRC / LVS / antena | Aprovados |
+
+`min/nom/max` identificam cantos de parasitas; TT/SS/FF identificam cantos de
+células. A STA pós-extração não é equivalente à análise típica pós-CTS do passo 12.
+Slew é o tempo de transição do sinal; capacitância é a carga elétrica na rede.
+Essas pendências impedem declarar signoff ou `SMOKE-PASS` completo do bloco.
+
+Equivalência RTL/netlist (`Yosys.EQY`) foi pulada: LVS compara o circuito extraído
+do layout com a netlist, não comprova equivalência com o RTL. IR drop sem
+`VSRC_LOC_FILES`, reset excluído da STA e sete saídas sem informação de difusão
+de antena continuam limitações a revisar. Não relaxar constraints para ocultar
+violações; primeiro identificar os caminhos/redes responsáveis.
+
 ## Recursos medidos pelo operador
+
+Todos os tempos incluem repetição dos estágios anteriores, não apenas o estágio-alvo.
 
 | Run | Tempo real (`time`) | Pico RSS (KiB) | Swaps | Saída |
 | --- | ---: | ---: | ---: | ---: |
@@ -210,6 +296,11 @@ clock gate e os limites elétricos precisam ser reavaliados após CTS/reparos.
 | `ibex-pdn` | 2:20,03 | 884.436 | 0 | 0 |
 | `ibex-global-placement` | 2:26,74 | 883.808 | 0 | 0 |
 | `ibex-detailed-placement` | 3:20,61 | 883.632 | 0 | 0 |
+| `ibex-cts` | 3:52,72 | 884.260 | 0 | 0 |
+| `ibex-postcts` | 5:24,35 | 884.420 | 0 | 0 |
+| `ibex-global-routing` | 5:23,26 | 884.016 | 0 | 0 |
+| `ibex-detailed-routing` | 26:20,44 | 2.344.556 | 0 | 0 |
+| `ibex-full` | 29:49,31 | 2.313.336 | 0 | 0 |
 
 ## Interpretação dos avisos e resultados
 
@@ -221,71 +312,16 @@ clock gate e os limites elétricos precisam ser reavaliados após CTS/reparos.
 - `GRT-0281`: muitos destinos de clock/reset; exigir distribuição física adequada;
 - `STA-1140`: carregamento repetido de Liberty, não duplicação de células RTL;
 - `RSZ-0020`: redes especiais `VPWR`/`VGND`; continuidade da PDN foi verificada;
-- `Flow complete`/saída zero: o gate terminou, não significa zero violação;
+- `DRT-0349`: regra LEF58 de enclosure não suportada foi pulada pelo roteador;
+  a aprovação do DRC independente não transforma esse aviso em validação universal;
+- checker de comprimento de fios pulado: limiar não configurado;
+- `Flow complete`/saída zero: execução concluída, não significa zero violação;
 - slack negativo: requisito não atendido; WNS/TNS zero significam ausência de
-  violações negativas reportadas, não cobertura completa das constraints.
+  violações negativas reportadas, não cobertura completa das constraints;
+- no log final, as linhas `VERBOSE No ... violations found` não anulam os
+  warnings por canto nem as violações presentes nas métricas.
 
 ## Roteiro pendente — não executado
-
-Retomar somente com recursos disponíveis. Todos os comandos abaixo repetem
-etapas anteriores; avaliar um gate por vez antes de continuar.
-
-### 11. CTS
-
-```bash
-/usr/bin/time -v "$LL" --run-tag ibex-cts --to OpenROAD.CTS \
-  experiments/librelane-ibex/config.yaml
-```
-
-Constrói buffers e ramificações de clock. Conferir destinos, profundidade,
-clock gating e buffers inseridos. Não concluir timing fechado somente pelo CTS.
-
-### 12. STA e reparos pós-CTS
-
-```bash
-/usr/bin/time -v "$LL" --run-tag ibex-postcts --to OpenROAD.STAMidPNR-2 \
-  experiments/librelane-ibex/config.yaml
-```
-
-Nesta versão, a segunda instância `STAMidPNR-2` vem após
-`ResizerTimingPostCTS`. Executa STA pós-CTS, reparos de setup/hold e nova STA.
-Examinar checks, inclusive clock gating e slew/cap/fanout; registrar problemas
-restantes antes do routing. O nome da instância deve ser revisto se mudar a versão.
-
-### 13. Roteamento global
-
-```bash
-/usr/bin/time -v "$LL" --run-tag ibex-global-routing --to OpenROAD.GlobalRouting \
-  experiments/librelane-ibex/config.yaml
-```
-
-Cria guias de roteamento. Conferir overflow, congestionamento, camadas,
-comprimento e conectividade. Se não convergir, analisar densidade/floorplan;
-não aumentar o die ou relaxar constraints sem registrar a justificativa.
-
-### 14. Roteamento detalhado
-
-```bash
-/usr/bin/time -v "$LL" --run-tag ibex-detailed-routing --to OpenROAD.DetailedRouting \
-  experiments/librelane-ibex/config.yaml
-```
-
-Fecha fios e vias; inclui verificações/reparos de antena anteriores. Conferir
-zero erro final do roteador e antena. Violações intermediárias são aceitáveis
-apenas se corrigidas; DRC interno do roteador não substitui Magic/KLayout.
-
-### 15. Extração, STA final, GDSII e verificação
-
-```bash
-/usr/bin/time -v "$LL" --run-tag ibex-full \
-  experiments/librelane-ibex/config.yaml
-```
-
-Sem `--to`, executa todo o fluxo: células de preenchimento, RCX/SPEF, STA
-pós-layout multicorner, GDSII, DRC Magic/KLayout, extração SPICE e LVS Netgen.
-Só classificar o fluxo do Ibex como `SMOKE-PASS` se os checks finais passarem,
-com zero violação de timing/elétrica exigida, DRC, LVS e antena.
-IR drop sem `VSRC_LOC_FILES` e reset excluído da STA continuam limitações.
 
 ### 16. Visualizar e relatar
 
@@ -295,6 +331,10 @@ klayout experiments/librelane-ibex/runs/ibex-full/final/gds/chipus_ibex_wrapper.
 
 Abrir somente quando o arquivo existir. Guardar resumo de métricas, comandos,
 versões e screenshots. Em `runs/<tag>/`: logs por estágio e `final/metrics.json`;
-no futuro `final/` terá GDS, DEF/ODB, netlist, SPEF/SDF e SPICE.
+o run completo já contém GDS, DEF/ODB, netlist, SPEF/SDF e SPICE.
 Manter binários e bases geradas fora do Git; versionar apenas fontes/configs,
 este roteiro e evidências textuais pequenas.
+
+Após a visualização: estudar caminhos de setup e redes com slew/capacitância
+fora do limite, revisar as constraints com PD e planejar uma correção controlada.
+Essa investigação e novos runs ainda não foram executados neste registro.
