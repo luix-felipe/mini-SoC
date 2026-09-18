@@ -1,0 +1,239 @@
+Reading timing models for corner max_tt_025C_1v80…
+Reading timing library for the 'max_tt_025C_1v80' corner at '/opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib'…
+Reading timing models for corner min_ss_100C_1v60…
+Reading timing library for the 'min_ss_100C_1v60' corner at '/opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib'…
+Reading timing models for corner nom_tt_025C_1v80…
+Reading timing library for the 'nom_tt_025C_1v80' corner at '/opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib'…
+[WARNING STA-1140] /opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib line 1, library sky130_fd_sc_hd__tt_025C_1v80 already exists.
+Reading timing models for corner max_ff_n40C_1v95…
+Reading timing library for the 'max_ff_n40C_1v95' corner at '/opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib'…
+Reading timing models for corner nom_ff_n40C_1v95…
+Reading timing library for the 'nom_ff_n40C_1v95' corner at '/opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib'…
+[WARNING STA-1140] /opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib line 1, library sky130_fd_sc_hd__ff_n40C_1v95 already exists.
+Reading timing models for corner max_ss_100C_1v60…
+Reading timing library for the 'max_ss_100C_1v60' corner at '/opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib'…
+[WARNING STA-1140] /opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib line 1, library sky130_fd_sc_hd__ss_100C_1v60 already exists.
+Reading timing models for corner min_tt_025C_1v80…
+Reading timing library for the 'min_tt_025C_1v80' corner at '/opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib'…
+[WARNING STA-1140] /opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib line 1, library sky130_fd_sc_hd__tt_025C_1v80 already exists.
+Reading timing models for corner nom_ss_100C_1v60…
+Reading timing library for the 'nom_ss_100C_1v60' corner at '/opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib'…
+[WARNING STA-1140] /opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib line 1, library sky130_fd_sc_hd__ss_100C_1v60 already exists.
+Reading timing models for corner min_ff_n40C_1v95…
+Reading timing library for the 'min_ff_n40C_1v95' corner at '/opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib'…
+[WARNING STA-1140] /opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib line 1, library sky130_fd_sc_hd__ff_n40C_1v95 already exists.
+Reading OpenROAD database at '/home/designer/shared/chipus-soc/mini-SoC/experiments/librelane-ibex/runs/ibex-full/35-openroad-cts/chipus_ibex_wrapper.odb'…
+Reading design constraints file at '/home/designer/shared/chipus-soc/mini-SoC/experiments/librelane-ibex/constraints.sdc'…
+[INFO] No information on clock propagation in input SDC file-- propagating all clocks.
++ repair_timing -verbose -setup -setup_margin 0.05000000000000000277555756156289135105907917022705078125 -max_buffer_percent 50
+[INFO RSZ-0100] Repair move sequence: UnbufferMove SizeUpMove SwapPinsMove BufferMove CloneMove SplitLoadMove 
+[INFO RSZ-0098] No setup violations found
++ repair_timing -verbose -hold -setup_margin 0.05000000000000000277555756156289135105907917022705078125 -hold_margin 0.1000000000000000055511151231257827021181583404541015625 -max_buffer_percent 50
+[INFO RSZ-0046] Found 1668 endpoints with hold violations.
+Iteration | Resized | Buffers | Cloned Gates |   Area   |   WNS   |   TNS   | Endpoint
+--------------------------------------------------------------------------------------
+        0 |       0 |       0 |            0 |    +0.0% |   0.011 |   0.000 | _21704_/D
+       10 |       0 |       9 |            0 |    +0.0% |   0.031 |   0.000 | _21601_/D
+       20 |       0 |      20 |            0 |    +0.1% |   0.032 |   0.000 | _21564_/D
+       30 |       0 |      32 |            0 |    +0.2% |   0.032 |   0.000 | _21494_/D
+       40 |       0 |      43 |            0 |    +0.2% |   0.032 |   0.000 | _21525_/D
+       50 |       0 |      54 |            0 |    +0.3% |   0.033 |   0.000 | _21572_/D
+       60 |       0 |      64 |            0 |    +0.4% |   0.033 |   0.000 | _21570_/D
+       70 |       0 |      74 |            0 |    +0.4% |   0.033 |   0.000 | _21469_/D
+       80 |       0 |      84 |            0 |    +0.5% |   0.034 |   0.000 | _21536_/D
+       90 |       0 |      94 |            0 |    +0.5% |   0.034 |   0.000 | _21510_/D
+      100 |       0 |     105 |            0 |    +0.6% |   0.035 |   0.000 | _21501_/D
+      110 |       0 |     116 |            0 |    +0.6% |   0.036 |   0.000 | _21503_/D
+      120 |       0 |     128 |            0 |    +0.7% |   0.037 |   0.000 | _21498_/D
+      130 |       0 |     139 |            0 |    +0.8% |   0.040 |   0.000 | _21530_/D
+      140 |       0 |     152 |            0 |    +0.8% |   0.043 |   0.000 | _21480_/D
+      150 |       0 |     165 |            0 |    +0.9% |   0.052 |   0.000 | _21298_/D
+      160 |       0 |     175 |            0 |    +1.0% |   0.054 |   0.000 | _21293_/D
+      170 |       0 |     185 |            0 |    +1.0% |   0.055 |   0.000 | _21329_/D
+      180 |       0 |     195 |            0 |    +1.1% |   0.056 |   0.000 | _21396_/D
+      190 |       0 |     205 |            0 |    +1.1% |   0.057 |   0.000 | _21421_/D
+      200 |       0 |     217 |            0 |    +1.2% |   0.058 |   0.000 | _21294_/D
+      210 |       0 |     227 |            0 |    +1.2% |   0.059 |   0.000 | _21411_/D
+      220 |       0 |     237 |            0 |    +1.3% |   0.059 |   0.000 | _21403_/D
+      230 |       0 |     247 |            0 |    +1.4% |   0.060 |   0.000 | _21392_/D
+      240 |       0 |     259 |            0 |    +1.4% |   0.060 |   0.000 | _21399_/D
+      250 |       0 |     270 |            0 |    +1.5% |   0.060 |   0.000 | _21174_/D
+      260 |       0 |     281 |            0 |    +1.5% |   0.060 |   0.000 | _21188_/D
+      270 |       0 |     293 |            0 |    +1.6% |   0.061 |   0.000 | _21200_/D
+      280 |       0 |     305 |            0 |    +1.7% |   0.061 |   0.000 | _21177_/D
+      290 |       0 |     316 |            0 |    +1.7% |   0.061 |   0.000 | _21679_/D
+      300 |       0 |     326 |            0 |    +1.8% |   0.061 |   0.000 | _21219_/D
+      310 |       0 |     336 |            0 |    +1.8% |   0.061 |   0.000 | _21060_/D
+      320 |       0 |     348 |            0 |    +1.9% |   0.062 |   0.000 | _21279_/D
+      330 |       0 |     360 |            0 |    +2.0% |   0.062 |   0.000 | _21178_/D
+      340 |       0 |     371 |            0 |    +2.0% |   0.062 |   0.000 | _21199_/D
+      350 |       0 |     383 |            0 |    +2.1% |   0.062 |   0.000 | _21238_/D
+      360 |       0 |     395 |            0 |    +2.2% |   0.062 |   0.000 | _21680_/D
+      370 |       0 |     408 |            0 |    +2.2% |   0.062 |   0.000 | _20815_/D
+      380 |       0 |     420 |            0 |    +2.3% |   0.062 |   0.000 | _21317_/D
+      390 |       0 |     430 |            0 |    +2.4% |   0.063 |   0.000 | _21237_/D
+      400 |       0 |     441 |            0 |    +2.4% |   0.063 |   0.000 | _20354_/D
+      410 |       0 |     451 |            0 |    +2.5% |   0.063 |   0.000 | _20410_/D
+      420 |       0 |     462 |            0 |    +2.5% |   0.063 |   0.000 | _21412_/D
+      430 |       0 |     472 |            0 |    +2.6% |   0.063 |   0.000 | _21222_/D
+      440 |       0 |     482 |            0 |    +2.7% |   0.063 |   0.000 | _20541_/D
+      450 |       0 |     492 |            0 |    +2.7% |   0.064 |   0.000 | _20248_/D
+      460 |       0 |     502 |            0 |    +2.8% |   0.064 |   0.000 | _20811_/D
+      470 |       0 |     513 |            0 |    +2.8% |   0.064 |   0.000 | _20305_/D
+      480 |       0 |     523 |            0 |    +2.9% |   0.064 |   0.000 | _21099_/D
+      490 |       0 |     533 |            0 |    +2.9% |   0.064 |   0.000 | _20392_/D
+      500 |       0 |     545 |            0 |    +3.0% |   0.064 |   0.000 | _20591_/D
+      510 |       0 |     555 |            0 |    +3.1% |   0.064 |   0.000 | _21429_/D
+      520 |       0 |     565 |            0 |    +3.1% |   0.064 |   0.000 | _20643_/D
+      530 |       0 |     575 |            0 |    +3.2% |   0.064 |   0.000 | _20773_/D
+      540 |       0 |     585 |            0 |    +3.2% |   0.064 |   0.000 | _20186_/D
+      550 |       0 |     595 |            0 |    +3.3% |   0.065 |   0.000 | _20213_/D
+      560 |       0 |     606 |            0 |    +3.3% |   0.065 |   0.000 | _20681_/D
+      570 |       0 |     616 |            0 |    +3.4% |   0.065 |   0.000 | _20436_/D
+      580 |       0 |     626 |            0 |    +3.4% |   0.065 |   0.000 | _20855_/D
+      590 |       0 |     636 |            0 |    +3.5% |   0.065 |   0.000 | _21678_/D
+      600 |       0 |     646 |            0 |    +3.6% |   0.065 |   0.000 | _20304_/D
+      610 |       0 |     656 |            0 |    +3.6% |   0.065 |   0.000 | _20229_/D
+      620 |       0 |     666 |            0 |    +3.7% |   0.065 |   0.000 | _20491_/D
+      630 |       0 |     676 |            0 |    +3.7% |   0.065 |   0.000 | _20775_/D
+      640 |       0 |     686 |            0 |    +3.8% |   0.065 |   0.000 | _20062_/D
+      650 |       0 |     696 |            0 |    +3.8% |   0.065 |   0.000 | _20535_/D
+      660 |       0 |     706 |            0 |    +3.9% |   0.066 |   0.000 | _20345_/D
+      670 |       0 |     716 |            0 |    +3.9% |   0.066 |   0.000 | _20588_/D
+      680 |       0 |     726 |            0 |    +4.0% |   0.066 |   0.000 | _20487_/D
+      690 |       0 |     736 |            0 |    +4.0% |   0.066 |   0.000 | _20284_/D
+      700 |       0 |     745 |            0 |    +4.1% |   0.066 |   0.000 | _21080_/D
+      710 |       0 |     755 |            0 |    +4.2% |   0.066 |   0.000 | _20508_/D
+      720 |       0 |     765 |            0 |    +4.2% |   0.066 |   0.000 | _20851_/D
+      730 |       0 |     777 |            0 |    +4.3% |   0.066 |   0.000 | _19940_/D
+      740 |       0 |     787 |            0 |    +4.3% |   0.066 |   0.000 | _20360_/D
+      750 |       0 |     797 |            0 |    +4.4% |   0.066 |   0.000 | _20355_/D
+      760 |       0 |     806 |            0 |    +4.4% |   0.066 |   0.000 | _20641_/D
+      770 |       0 |     815 |            0 |    +4.5% |   0.066 |   0.000 | _20367_/D
+      780 |       0 |     825 |            0 |    +4.5% |   0.066 |   0.000 | _19950_/D
+      790 |       0 |     835 |            0 |    +4.6% |   0.066 |   0.000 | _20069_/D
+      800 |       0 |     844 |            0 |    +4.6% |   0.067 |   0.000 | _20075_/D
+      810 |       0 |     854 |            0 |    +4.7% |   0.067 |   0.000 | _20877_/D
+      820 |       0 |     864 |            0 |    +4.8% |   0.067 |   0.000 | _20905_/D
+      830 |       0 |     874 |            0 |    +4.8% |   0.067 |   0.000 | _20782_/D
+      840 |       0 |     884 |            0 |    +4.9% |   0.067 |   0.000 | _21120_/D
+      850 |       0 |     894 |            0 |    +4.9% |   0.067 |   0.000 | _20161_/D
+      860 |       0 |     904 |            0 |    +5.0% |   0.067 |   0.000 | _20572_/D
+      870 |       0 |     915 |            0 |    +5.0% |   0.067 |   0.000 | _20545_/D
+      880 |       0 |     925 |            0 |    +5.1% |   0.067 |   0.000 | _20389_/D
+      890 |       0 |     935 |            0 |    +5.1% |   0.067 |   0.000 | _20647_/D
+      900 |       0 |     945 |            0 |    +5.2% |   0.067 |   0.000 | _20364_/D
+      910 |       0 |     955 |            0 |    +5.3% |   0.067 |   0.000 | _20334_/D
+      920 |       0 |     965 |            0 |    +5.3% |   0.067 |   0.000 | _20680_/D
+      930 |       0 |     975 |            0 |    +5.4% |   0.067 |   0.000 | _20764_/D
+      940 |       0 |     985 |            0 |    +5.4% |   0.067 |   0.000 | _20441_/D
+      950 |       0 |     995 |            0 |    +5.5% |   0.067 |   0.000 | _20301_/D
+      960 |       0 |    1005 |            0 |    +5.5% |   0.068 |   0.000 | _20134_/D
+      970 |       0 |    1015 |            0 |    +5.6% |   0.068 |   0.000 | _20106_/D
+      980 |       0 |    1025 |            0 |    +5.6% |   0.068 |   0.000 | _20395_/D
+      990 |       0 |    1035 |            0 |    +5.7% |   0.068 |   0.000 | _19998_/D
+     1000 |       0 |    1045 |            0 |    +5.7% |   0.068 |   0.000 | _20490_/D
+     1010 |       0 |    1055 |            0 |    +5.8% |   0.068 |   0.000 | _20163_/D
+     1020 |       0 |    1065 |            0 |    +5.9% |   0.068 |   0.000 | _20370_/D
+     1030 |       0 |    1075 |            0 |    +5.9% |   0.068 |   0.000 | _20387_/D
+     1040 |       0 |    1085 |            0 |    +6.0% |   0.068 |   0.000 | _20234_/D
+     1050 |       0 |    1095 |            0 |    +6.0% |   0.068 |   0.000 | _20143_/D
+     1060 |       0 |    1105 |            0 |    +6.1% |   0.068 |   0.000 | _20754_/D
+     1070 |       0 |    1115 |            0 |    +6.1% |   0.068 |   0.000 | _20737_/D
+     1080 |       0 |    1125 |            0 |    +6.2% |   0.068 |   0.000 | _20481_/D
+     1090 |       0 |    1135 |            0 |    +6.2% |   0.068 |   0.000 | _20333_/D
+     1100 |       0 |    1145 |            0 |    +6.3% |   0.068 |   0.000 | _20174_/D
+     1110 |       0 |    1155 |            0 |    +6.4% |   0.068 |   0.000 | _19960_/D
+     1120 |       0 |    1165 |            0 |    +6.4% |   0.068 |   0.000 | _19933_/D
+     1130 |       0 |    1174 |            0 |    +6.5% |   0.068 |   0.000 | _20043_/D
+     1140 |       0 |    1184 |            0 |    +6.5% |   0.069 |   0.000 | _20269_/D
+     1150 |       0 |    1194 |            0 |    +6.6% |   0.069 |   0.000 | _19977_/D
+     1160 |       0 |    1204 |            0 |    +6.6% |   0.069 |   0.000 | _20576_/D
+     1170 |       0 |    1214 |            0 |    +6.7% |   0.069 |   0.000 | _20516_/D
+     1180 |       0 |    1224 |            0 |    +6.7% |   0.069 |   0.000 | _20321_/D
+     1190 |       0 |    1234 |            0 |    +6.8% |   0.069 |   0.000 | _20080_/D
+     1200 |       0 |    1244 |            0 |    +6.8% |   0.069 |   0.000 | _20326_/D
+     1210 |       0 |    1254 |            0 |    +6.9% |   0.069 |   0.000 | _20037_/D
+     1220 |       0 |    1264 |            0 |    +6.9% |   0.069 |   0.000 | _20268_/D
+     1230 |       0 |    1274 |            0 |    +7.0% |   0.069 |   0.000 | _19955_/D
+     1240 |       0 |    1284 |            0 |    +7.1% |   0.069 |   0.000 | _20082_/D
+     1250 |       0 |    1294 |            0 |    +7.1% |   0.069 |   0.000 | _20748_/D
+     1260 |       0 |    1304 |            0 |    +7.2% |   0.070 |   0.000 | _20242_/D
+     1270 |       0 |    1314 |            0 |    +7.2% |   0.070 |   0.000 | _20703_/D
+     1280 |       0 |    1325 |            0 |    +7.3% |   0.070 |   0.000 | _20452_/D
+     1290 |       0 |    1335 |            0 |    +7.3% |   0.070 |   0.000 | _20053_/D
+     1300 |       0 |    1345 |            0 |    +7.4% |   0.070 |   0.000 | _20010_/D
+     1310 |       0 |    1355 |            0 |    +7.4% |   0.070 |   0.000 | _20112_/D
+     1320 |       0 |    1365 |            0 |    +7.5% |   0.070 |   0.000 | _20215_/D
+     1330 |       0 |    1375 |            0 |    +7.6% |   0.070 |   0.000 | _19973_/D
+     1340 |       0 |    1385 |            0 |    +7.6% |   0.070 |   0.000 | _20617_/D
+     1350 |       0 |    1395 |            0 |    +7.7% |   0.070 |   0.000 | _20260_/D
+     1360 |       0 |    1405 |            0 |    +7.7% |   0.071 |   0.000 | _20107_/D
+     1370 |       0 |    1415 |            0 |    +7.8% |   0.071 |   0.000 | _20293_/D
+     1380 |       0 |    1425 |            0 |    +7.8% |   0.071 |   0.000 | _20675_/D
+     1390 |       0 |    1435 |            0 |    +7.9% |   0.071 |   0.000 | _21646_/D
+     1400 |       0 |    1445 |            0 |    +7.9% |   0.071 |   0.000 | _19951_/D
+     1410 |       0 |    1455 |            0 |    +8.0% |   0.071 |   0.000 | _20624_/D
+     1420 |       0 |    1465 |            0 |    +8.1% |   0.071 |   0.000 | _20178_/D
+     1430 |       0 |    1475 |            0 |    +8.1% |   0.072 |   0.000 | _20870_/D
+     1440 |       0 |    1485 |            0 |    +8.2% |   0.072 |   0.000 | _20276_/D
+     1450 |       0 |    1495 |            0 |    +8.2% |   0.072 |   0.000 | _20859_/D
+     1460 |       0 |    1505 |            0 |    +8.3% |   0.073 |   0.000 | _20605_/D
+     1470 |       0 |    1515 |            0 |    +8.3% |   0.073 |   0.000 | _20509_/D
+     1480 |       0 |    1525 |            0 |    +8.4% |   0.074 |   0.000 | _20495_/D
+     1490 |       0 |    1535 |            0 |    +8.4% |   0.074 |   0.000 | _20719_/D
+     1500 |       0 |    1546 |            0 |    +8.5% |   0.076 |   0.000 | _20727_/D
+     1510 |       0 |    1556 |            0 |    +8.6% |   0.077 |   0.000 | _21050_/D
+     1520 |       0 |    1566 |            0 |    +8.6% |   0.078 |   0.000 | _21010_/D
+     1530 |       0 |    1577 |            0 |    +8.7% |   0.080 |   0.000 | _21641_/D
+     1540 |       0 |    1587 |            0 |    +8.7% |   0.081 |   0.000 | _20949_/D
+     1550 |       0 |    1597 |            0 |    +8.8% |   0.082 |   0.000 | _20946_/D
+     1560 |       0 |    1607 |            0 |    +8.8% |   0.083 |   0.000 | _21152_/D
+     1570 |       0 |    1617 |            0 |    +8.9% |   0.084 |   0.000 | _21031_/D
+     1580 |       0 |    1628 |            0 |    +9.0% |   0.084 |   0.000 | _20987_/D
+     1590 |       0 |    1638 |            0 |    +9.0% |   0.086 |   0.000 | _21690_/D
+     1600 |       0 |    1649 |            0 |    +9.1% |   0.087 |   0.000 | _20928_/D
+     1610 |       0 |    1659 |            0 |    +9.1% |   0.088 |   0.000 | _21446_/D
+     1620 |       0 |    1669 |            0 |    +9.2% |   0.090 |   0.000 | _21440_/D
+     1630 |       0 |    1678 |            0 |    +9.2% |   0.091 |   0.000 | _21015_/D
+     1640 |       0 |    1688 |            0 |    +9.3% |   0.093 |   0.000 | _19842_/D
+     1650 |       0 |    1698 |            0 |    +9.3% |   0.095 |   0.000 | _21000_/D
+     1660 |       0 |    1708 |            0 |    +9.4% |   0.097 |   0.000 | _21475_/D
+     1670 |       0 |    1716 |            0 |    +9.4% |   0.097 |   0.000 | _21241_/D
+    final |       0 |    1723 |            0 |    +9.5% |   0.100 |   0.000 | _20947_/D
+--------------------------------------------------------------------------------------
+[INFO RSZ-0032] Inserted 1723 hold buffers.
++ detailed_placement -max_displacement  500 100 
+Placement Analysis
+---------------------------------
+total displacement      10133.6 u
+average displacement        0.4 u
+max displacement           11.9 u
+original HPWL          803594.3 u
+legalized HPWL         823456.3 u
+delta HPWL                    2 %
+
+[INFO DPL-0020] Mirrored 6725 instances
+[INFO DPL-0021] HPWL before          823456.3 u
+[INFO DPL-0022] HPWL after           808444.6 u
+[INFO DPL-0023] HPWL delta               -1.8 %
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 6892 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Fill cell                               534    2004.42
+  Tap cell                               7666    9591.70
+  Buffer                                   30     150.14
+  Clock buffer                            391    5490.27
+  Timing Repair Buffer                   4420   41578.63
+  Inverter                                134     502.98
+  Clock inverter                           31     314.05
+  Sequential cell                        1947   49780.24
+  Multi-Input combinational cell         9832  101487.33
+  Total                                 24985  210899.77
+Writing OpenROAD database to '/home/designer/shared/chipus-soc/mini-SoC/experiments/librelane-ibex/runs/ibex-full/37-openroad-resizertimingpostcts/chipus_ibex_wrapper.odb'…
+Writing netlist to '/home/designer/shared/chipus-soc/mini-SoC/experiments/librelane-ibex/runs/ibex-full/37-openroad-resizertimingpostcts/chipus_ibex_wrapper.nl.v'…
+Writing powered netlist to '/home/designer/shared/chipus-soc/mini-SoC/experiments/librelane-ibex/runs/ibex-full/37-openroad-resizertimingpostcts/chipus_ibex_wrapper.pnl.v'…
+Writing layout to '/home/designer/shared/chipus-soc/mini-SoC/experiments/librelane-ibex/runs/ibex-full/37-openroad-resizertimingpostcts/chipus_ibex_wrapper.def'…
+Writing timing constraints to '/home/designer/shared/chipus-soc/mini-SoC/experiments/librelane-ibex/runs/ibex-full/37-openroad-resizertimingpostcts/chipus_ibex_wrapper.sdc'…
