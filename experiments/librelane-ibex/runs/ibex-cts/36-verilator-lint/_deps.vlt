@@ -1,5 +1,0 @@
-`verilator_config
-lint_off -rule DECLFILENAME
-lint_off -rule EOFNEWLINE
-lint_off -rule UNDRIVEN -file "/home/designer/shared/chipus-soc/mini-SoC/experiments/librelane-ibex/runs/ibex-cts/tmp/0e0051799fcf4fdc9efb1380652b5d26.bb.v"
-lint_off -rule UNUSEDSIGNAL -file "/home/designer/shared/chipus-soc/mini-SoC/experiments/librelane-ibex/runs/ibex-cts/tmp/0e0051799fcf4fdc9efb1380652b5d26.bb.v"

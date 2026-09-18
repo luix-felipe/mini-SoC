@@ -15,4 +15,5 @@
 
 # Generated flattened source tree for the LibreLane frontend
 /flow/src/
+/flow/croc-src/
 /flow/runs/

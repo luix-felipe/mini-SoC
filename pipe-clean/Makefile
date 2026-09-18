@@ -5,7 +5,7 @@ QUALIFICATION_DIR := $(MINISOC_ROOT)/experiments/riscv-core-qualification
 IBEX_DIR := $(WORKSPACE_ROOT)/ip-candidates/riscv/ibex
 CROC_DIR := $(WORKSPACE_ROOT)/ip-candidates/riscv/croc
 
-.PHONY: show ibex-core ibex-wrapper ibex-smoke croc-smoke chipus-soc-smoke librelane-prepare
+.PHONY: show ibex-core ibex-wrapper ibex-smoke croc-smoke chipus-soc-smoke librelane-prepare librelane-croc-prepare
 
 show:
 	@echo "Workspace .......... $(WORKSPACE_ROOT)"
@@ -34,3 +34,6 @@ chipus-soc-smoke:
 
 librelane-prepare:
 	"$(MINISOC_ROOT)/flow/prepare-sources.sh"
+
+librelane-croc-prepare:
+	"$(MINISOC_ROOT)/flow/prepare-croc-sources.sh"

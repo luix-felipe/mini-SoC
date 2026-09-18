@@ -1,0 +1,37 @@
+DESIGN_NAME: core_wrap
+
+# Geradas por `make -C pipe-clean librelane-croc-prepare` a partir do Croc
+# fixado. O arquivo gerado preserva a ordem definida pelo Bender.
+VERILOG_FILES:
+  - dir::../../flow/croc-src/rtl/*.sv
+
+VERILOG_INCLUDE_DIRS:
+  - dir::../../flow/croc-src/include/apb
+  - dir::../../flow/croc-src/include/common_cells
+  - dir::../../flow/croc-src/include/cve2
+  - dir::../../flow/croc-src/include/idma
+  - dir::../../flow/croc-src/include/obi
+
+VERILOG_DEFINES:
+  - SYNTHESIS
+  - TARGET_FLIST
+  - TARGET_SYNTHESIS
+  - COMMON_CELLS_ASSERTS_OFF
+
+USE_SLANG: true
+
+# Evita que OpenROAD receba o valor nulo da configuração padrão como contagem
+# de threads (ORD-0032). Esta máquina disponibiliza oito CPUs lógicas.
+OPENROAD_THREADS: 8
+
+CLOCK_PORT: clk_i
+CLOCK_PERIOD: 50.0
+PNR_SDC_FILE: dir::constraints.sdc
+SIGNOFF_SDC_FILE: dir::constraints.sdc
+FP_SIZING: absolute
+DIE_AREA: [0, 0, 750, 750]
+IO_PIN_ORDER_CFG: dir::pin_order.cfg
+
+pdk::sky130A:
+  scl::sky130_fd_sc_hd:
+    CLOCK_PERIOD: 50.0

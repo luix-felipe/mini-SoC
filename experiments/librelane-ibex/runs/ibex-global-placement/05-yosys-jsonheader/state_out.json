@@ -1,9 +1,0 @@
-{
-    "json_h": "/home/designer/shared/chipus-soc/mini-SoC/experiments/librelane-ibex/runs/ibex-global-placement/05-yosys-jsonheader/chipus_ibex_wrapper.h.json",
-    "metrics": {
-        "design__lint_error__count": 0,
-        "design__lint_timing_construct__count": 0,
-        "design__lint_warning__count": 134,
-        "design__inferred_latch__count": 0
-    }
-}
