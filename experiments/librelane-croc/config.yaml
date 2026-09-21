@@ -20,10 +20,6 @@ VERILOG_DEFINES:
 
 USE_SLANG: true
 
-# Evita que OpenROAD receba o valor nulo da configuração padrão como contagem
-# de threads (ORD-0032). Esta máquina disponibiliza oito CPUs lógicas.
-OPENROAD_THREADS: 8
-
 CLOCK_PORT: clk_i
 CLOCK_PERIOD: 50.0
 PNR_SDC_FILE: dir::constraints.sdc

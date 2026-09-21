@@ -76,6 +76,12 @@ logs enviados pelo operador até placement; os
 Os runs guardam logs completos e configs históricos;
 o config atual incorpora mudanças feitas ao longo do laboratório.
 
+Uma [segunda execução didática](evidence/execution-2-ibex-study.md), concluída
+em 2026-09-20, usa tags `ibex-study2-*` e um relatório independente. Ela
+reproduziu o smoke funcional e o fluxo até GDSII: DRC, LVS, antena e hold
+passaram; setup falhou em dois cantos e slew, capacitância e fanout permanecem
+abertos. A inspeção do GDSII no KLayout também foi confirmada.
+
 ### 1. Preparar fontes
 
 ```bash
